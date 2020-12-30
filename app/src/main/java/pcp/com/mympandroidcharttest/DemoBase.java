@@ -21,7 +21,7 @@ import androidx.core.app.ActivityCompat;
  *
  * @author Philipp Jahoda
  */
-public abstract class DemoBase extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+public abstract class DemoBase extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback { // Horse important
 
     protected final String[] months = new String[] {
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"

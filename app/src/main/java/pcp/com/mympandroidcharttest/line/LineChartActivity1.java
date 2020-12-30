@@ -63,7 +63,7 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_linechart);
 
-        setTitle("LineChartActivity1");
+        setTitle("LineChartActivity1");  // Horse important - This is Activity property
 
         tvX = findViewById(R.id.tvXMax);
         tvY = findViewById(R.id.tvYMax);
@@ -77,69 +77,69 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
 
 
         {   // // Chart Style // //
-            chart = findViewById(R.id.chart1);
+            chart = findViewById(R.id.chart1);  // Already record
 
             // background color
-            chart.setBackgroundColor(Color.WHITE);
+            chart.setBackgroundColor(Color.WHITE);  // Already record
 
             // disable description text
-            chart.getDescription().setEnabled(false);
+            chart.getDescription().setEnabled(false);  // Already record
 
             // enable touch gestures
-            chart.setTouchEnabled(true);
+            chart.setTouchEnabled(true);  // Already record
 
             // set listeners
-            chart.setOnChartValueSelectedListener(this);
-            chart.setDrawGridBackground(false);
+            chart.setOnChartValueSelectedListener(this);  // Already record
+            chart.setDrawGridBackground(false);  // Already record
 
             // create marker to display box when values are selected
-            MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
+            MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);  // Horse important : 點選的 dialog
 
             // Set the marker to the chart
-            mv.setChartView(chart);
+            mv.setChartView(chart);     // Horse important : 裡面的處理重要
             chart.setMarker(mv);
 
             // enable scaling and dragging
-            chart.setDragEnabled(true);
-            chart.setScaleEnabled(true);
+            chart.setDragEnabled(true);  // Already record
+            chart.setScaleEnabled(true);  // Already record
             // chart.setScaleXEnabled(true);
             // chart.setScaleYEnabled(true);
 
             // force pinch zoom along both axis
-            chart.setPinchZoom(true);
+            chart.setPinchZoom(true);  // Already record
         }
 
         XAxis xAxis;
         {   // // X-Axis Style // //
-            xAxis = chart.getXAxis();
+            xAxis = chart.getXAxis();  // Already record
 
             // vertical grid lines
-            xAxis.enableGridDashedLine(10f, 10f, 0f);
+            xAxis.enableGridDashedLine(10f, 10f, 0f);  // Already record
         }
 
         YAxis yAxis;
         {   // // Y-Axis Style // //
-            yAxis = chart.getAxisLeft();
+            yAxis = chart.getAxisLeft();  // Already record
 
             // disable dual axis (only use LEFT axis)
-            chart.getAxisRight().setEnabled(false);
+            chart.getAxisRight().setEnabled(false);  // Already record
 
             // horizontal grid lines
-            yAxis.enableGridDashedLine(10f, 10f, 0f);
+            yAxis.enableGridDashedLine(10f, 10f, 0f);  // Already record
 
             // axis range
-            yAxis.setAxisMaximum(200f);
-            yAxis.setAxisMinimum(-50f);
+            yAxis.setAxisMaximum(200f);  // Already record
+            yAxis.setAxisMinimum(-50f);  // Already record
         }
 
 
         {   // // Create Limit Lines // //
-            LimitLine llXAxis = new LimitLine(9f, "Index 10");
-            llXAxis.setLineWidth(4f);
-            llXAxis.enableDashedLine(10f, 10f, 0f);
-            llXAxis.setLabelPosition(LimitLabelPosition.RIGHT_BOTTOM);
-            llXAxis.setTextSize(10f);
-            llXAxis.setTypeface(tfRegular);
+            LimitLine llXAxis = new LimitLine(9f, "Index 10");    // Already record
+            llXAxis.setLineWidth(4f);    // Already record
+            llXAxis.enableDashedLine(10f, 10f, 0f);   // Horse important,裡面處理重要
+            llXAxis.setLabelPosition(LimitLabelPosition.RIGHT_BOTTOM);   // Horse important,LimitLabelPosition 處理重要
+            llXAxis.setTextSize(10f); // Horse important,裡面處理重要
+            llXAxis.setTypeface(tfRegular);    // Already record
 
             LimitLine ll1 = new LimitLine(150f, "Upper Limit");
             ll1.setLineWidth(4f);
@@ -156,12 +156,12 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
             ll2.setTypeface(tfRegular);
 
             // draw limit lines behind data instead of on top
-            yAxis.setDrawLimitLinesBehindData(true);
-            xAxis.setDrawLimitLinesBehindData(true);
+            yAxis.setDrawLimitLinesBehindData(true);  // Already record
+            xAxis.setDrawLimitLinesBehindData(true);  // Already record
 
             // add limit lines
-            yAxis.addLimitLine(ll1);
-            yAxis.addLimitLine(ll2);
+            yAxis.addLimitLine(ll1);  // Already record
+            yAxis.addLimitLine(ll2);  // Already record
             //xAxis.addLimitLine(llXAxis);
         }
 
@@ -174,10 +174,10 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
         chart.animateX(1500);
 
         // get the legend (only possible after setting data)
-        Legend l = chart.getLegend();
+        Legend l = chart.getLegend();  // Already record
 
         // draw legend entries as lines
-        l.setForm(LegendForm.LINE);
+        l.setForm(LegendForm.LINE);  // Already record
     }
 
     private void setData(int count, float range) {
@@ -194,35 +194,35 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
 
         if (chart.getData() != null &&
                 chart.getData().getDataSetCount() > 0) {
-            set1 = (LineDataSet) chart.getData().getDataSetByIndex(0);
-            set1.setValues(values);
-            set1.notifyDataSetChanged();
-            chart.getData().notifyDataChanged();
-            chart.notifyDataSetChanged();
+            set1 = (LineDataSet) chart.getData().getDataSetByIndex(0);   // Already record
+            set1.setValues(values);                 // Already record
+            set1.notifyDataSetChanged();            // Already record
+            chart.getData().notifyDataChanged();    // Already record
+            chart.notifyDataSetChanged();           // Already record
         } else {
             // create a dataset and give it a type
-            set1 = new LineDataSet(values, "DataSet 1");
+            set1 = new LineDataSet(values, "DataSet 1");    // Already record
 
-            set1.setDrawIcons(false);
+            set1.setDrawIcons(false);  // Already record, 繪圖表示各點的小圓點,是否要改成預設的icon圖
 
             // draw dashed line
-            set1.enableDashedLine(10f, 5f, 0f);
+            set1.enableDashedLine(10f, 5f, 0f);   // Already record, 繪圖線的破折線長度
 
             // black lines and points
-            set1.setColor(Color.BLACK);
-            set1.setCircleColor(Color.BLACK);
+            set1.setColor(Color.BLACK);   // Already record, 繪圖線的顏色
+            set1.setCircleColor(Color.BLACK);   // Already record, 繪圖表示各點的小圓點顏色
 
             // line thickness and point size
-            set1.setLineWidth(1f);
-            set1.setCircleRadius(3f);
+            set1.setLineWidth(1f);    // Already record, 繪圖線的粗細
+            set1.setCircleRadius(3f);   // Already record, 繪圖表示各點的小圓點顏色的半徑
 
             // draw points as solid circles
-            set1.setDrawCircleHole(false);
+            set1.setDrawCircleHole(false);   // Already record, 繪圖表示各點的小圓點,是否要畫洞
 
             // customize legend entry
-            set1.setFormLineWidth(1f);
+            set1.setFormLineWidth(3f); // Already record, 這是在圖左下方,做圖表說明的區域,線的描述
             set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-            set1.setFormSize(15.f);
+            set1.setFormSize(15.f); // Already record, 圖表說明的示意線的長度
 
             // text size of values
             set1.setValueTextSize(9f);
@@ -232,7 +232,7 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
 
             // set the filled area
             set1.setDrawFilled(true);
-            set1.setFillFormatter(new IFillFormatter() {
+            set1.setFillFormatter(new IFillFormatter() { // Horse important : 裡面的處理重要
                 @Override
                 public float getFillLinePosition(ILineDataSet dataSet, LineDataProvider dataProvider) {
                     return chart.getAxisLeft().getAxisMinimum();
@@ -243,7 +243,7 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
             if (Utils.getSDKInt() >= 18) {
                 // drawables only supported on api level 18 and above
                 Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_red);
-                set1.setFillDrawable(drawable);
+                set1.setFillDrawable(drawable);  // Already record, 設定圖片要填滿的 Drawable
             } else {
                 set1.setFillColor(Color.BLACK);
             }
