@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class LineActivity extends AppCompatActivity {
-    Button mbtnBasic;
+    Button mbtnBasic, mbtnMulti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +18,22 @@ public class LineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_line);
 
         mbtnBasic = findViewById(R.id.btnBasic);
+        mbtnMulti = findViewById(R.id.btnMulti);
 
         mbtnBasic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent();
                 i.setClass(LineActivity.this, LineChartActivity1.class);
+                startActivity(i);
+            }
+        });
+
+        mbtnMulti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent();
+                i.setClass(LineActivity.this, MultiLineChartActivity.class);
                 startActivity(i);
             }
         });
