@@ -1,0 +1,206 @@
+[gradle如何加入MPAndroidChart]
+[LineChart的特性]
+
+
+[MPAndroidChart內元件] (MPObject)
+  [MPObject - Utils] 看 charting/utils/Utils.java
+  [MPObject - ColorTemplate] 看 charting/utils/ColorTemplate.java
+
+  [MPObject - Chart] 看 charting/charts/Chart.java
+  [MPObject - LineChart] 看 charting/charts/LineChart.java
+
+  [MPObject - Description] 看 charting/components/Description.java
+  [MPObject - BarLineChartBase] 看 charting/charts/BarLineChartBase.java
+  [MPObject - XAxis] 看 charting/components/XAxis.java
+  [MPObject - YAxis] 看 charting/components/YAxis.java
+  [MPObject - AxisBase] 看 charting/components/AxisBase.java
+  [MPObject - LimitLine] 看 charting/components/LimitLine.java
+  [MPObject - ComponentBase] 看 charting/components/ComponentBase.java
+  [MPObject - Legend] 看 charting/components/Legend.java (含一個 每個顏色和 DataSet 的入口,在一DataSet有多個顏色會群聚在一起)
+
+  [MPObject - Entry] 看 charting/data/Entry.java , 在圖上描繪一個 項目(entry)
+  [MPObject - LineDataSet] 看 charting/data/LineDataSet.java
+  [MPObject - ChartData] 看 charting/data/ChartData.java
+  [MPObject - DataSet] 看 charting/data/DataSet.java
+  [MPObject - BaseDataSet] 看 charting/data/BaseDataSet.java
+  [MPObject - LineRadarDataSet] 看 charting/data/LineRadarDataSet.java
+  [MPObject - BaseEntry] 看 charting/data/BaseEntry.java , 看Chart內容 應是最小的元素之一
+  [MPObject - LineScatterCandleRadarDataSet] 看 charting/data/LineScatterCandleRadarDataSet.java
+
+  [MPObject - ILineDataSet] 看 charting/interfaces/datasets/ILineDataSet.java
+
+  [MPObject - OnChartValueSelectedListener] 看 charting/listener/OnChartValueSelectedListener.java , 若選到圖的值的callback
+  [MPObject - OnChartGestureListener] 看 charting/listener/OnChartGestureListener.java
+
+
+[其他重人一口中要的地方]
+= = = =
+[gradle如何加入MPAndroidChart]
+1. Project 的 build.gradle
+a. buildscript 的 repositories { 加入
+  maven { url 'https://jitpack.io' }
+
+b. allprojects 的 repositories 加入
+  maven { url 'https://jitpack.io' }
+
+2. Module 的 build.gradle
+ dependencies 加上
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+[LineChart的特性]
+.setBackgroundColor(Color.WHITE); - 設背景色, Android View的屬性
+.getDescription() - 取得描述內容,預設在右下角 , MPAndroid Chart屬性
+.setTouchEnabled(boolean) - 是否可點選 , MPAndroid Chart屬性
+.setOnChartValueSelectedListener(OnChartValueSelectedListener l) - 設定 chart 的 selection listener , MPAndroid Chart屬性
+.setDrawGridBackground(false) - 是否畫 grid的背景 - BarLineChartBase.java, 設true會跟 setGridBackgroundColor 搭配
+.setGridBackgroundColor(int color) - 設 Grid 的 Background color
+.setMarker(mv); - 設定click時顯示的值 , MPAndroid Chart屬性
+.setDragEnable(boolean) - 設定是可以拉的 , BarLineChartBase屬性
+.setScaleEnabled(true) - 設定可以zoom in/out , BarLineChartBase屬性
+.setPinchZoom(true) - 設定x,y軸可以同時用二指來放大/縮小 , BarLineChartBase屬性
+.getXAxis() - 回傳代表所有 x-labels 的 object , BarLineChartBase屬性
+.getAxisLeft() - 回傳 YAxis, 回傳 y軸 object的左測, 在水平 bar-chart,這是top 軸 , BarLineChartBase屬性
+.getAxisRight() - 回傳 YAxis, 回傳 y軸 object的右測, 在水平 bar-chart,這是bottom 軸 , BarLineChartBase屬性
+
+[MPObject - Chart] 看 charting/charts/Chart.java 算是所有圖的基本
+.Description getDescription() - 取得描述內容,預設在右下角 , MPAndroid Chart屬性
+.setTouchEnabled(boolean) - 是否可點選 , MPAndroid Chart屬性
+.setOnChartValueSelectedListener(OnChartValueSelectedListener l) - 設定 chart 的 selection listener
+.setMarker(mv); - 設定click時顯示的值 , MPAndroid Chart屬性
+.animateX(int durationMillis) - rendering(渲染 X 軸的圖與特定的時間)
+.Legend getLegend() - 回傳 chart的 Legend object
+.T getData() - 取得已被設定在 chart 的 ChartData上
+
+
+[MPObject - Description] 看 charting/components/Description.java
+.setOnChartValueSelectedListener(OnChartValueSelectedListener l) - 設定 chart 的 selection listener , MPAndroid Chart屬性
+
+[MPObject - BarLineChartBase] 看 charting/charts/BarLineChartBase.java
+.setDrawGridBackground(false) - 畫 grid的背景 - BarLineChartBase.java
+.setDragEnabled(boolean) - 設定是可以拉的 , BarLineCharBase屬性
+.setScaleEnabled(true) - 設定可以zoom in/out , BarLineChartBase屬性
+.setPinchZoom(true) - 設定x,y軸可以同時用二指來放大/縮小 , BarLineChartBase屬性
+.getXAxis() - 回傳代表所有 x-labels 的 object , BarLineChartBase屬性
+.getAxisLeft() - 回傳 YAxis, 回傳 y軸 object的左測, 在水平 bar-chart,這是top 軸 , BarLineChartBase屬性 (有 bar-chart的實例)
+.getAxisRight() - 回傳 YAxis, 回傳 y軸 object的右測, 在水平 bar-chart,這是bottom 軸 , BarLineChartBase屬性
+.notifyDataSetChanged() - 處理資料被改變的事情
+.setDrawBorders(boolean enabled) - When enabled, the borders rectangle will be rendered. 這是畫Graph的長方型邊框
+ 
+[MPObject - XAxis] 看 charting/components/XAxis.java
+.enableGridDashedLine(float lineLength, float spaceLength, float phase) - enable grid line是劃成dashed mode, 像- - - - - -
+  lineLength - 線長度 , spaceLength - 空間長度 , phase - offset (幾度))
+
+[MPObject - YAxis] 看 charting/components/YAxis.java
+.enableGridDashedLine(float lineLength, float spaceLength, float phase) - enable grid line是劃成dashed mode, 像- - - - - -
+  lineLength - 線長度 , spaceLength - 空間長度 , phase - offset (幾度))
+
+[MPObject - AxisBase] 看 charting/components/AxisBase.java
+.setAxisMaximum(float) - 設自訂最大值,若設了,此值不會隨提供的資料來變動軸度的最大最小值. resetAxisMaxValue() 可以undo 這個 , MPAndroid AxisBase 屬性
+.setAxisMinimum(float) - 設自訂最大值,若設了,此值不會隨提供的資料來變動軸度的最大最小值. resetAxisMinValue() 可以undo 這個 , MPAndroid AxisBase 屬性
+.setDrawLimitLinesBehindData(boolean enabled)  - 設 true,表示畫在真實資料的後面,否則就是畫在上面
+.addLimitLine(LimitLine l) - 將 LimitLine 加入軸度
+.getAxisMinimum() - 取得軸度的最小值
+.setDrawAxisLine(boolean enabled) - Set this to true if the line alongside(adv.在旁邊；沿著) the axis should be drawn or not.
+.setDrawGridLines(boolean enabled) - 設 true - enable drawing the grid lines for this axis.
+
+[MPObject - LimitLine] 看 charting/components/LimitLine.java
+The limit line is an additional feature for all Line-, Bar- and ScatterCharts. It allows the displaying of an additional line in the chart that marks a certain maximum / limit on the specified axis (x- or y-axis). 在線圖上,畫出額外的線來標示最大/限制值
+
+LimitLine(float limit, String label) - 建構子, limit - Y軸或X軸的位置, label - 要顯示的label
+.setLineWidth(float width) - 設定線寬
+.enableDashedLine(float lineLength, float spaceLength, float phase)  - enable grid line是劃成dashed mode, 像- - - - - -
+   lineLength - 線長度 , spaceLength - 空間長度 , phase - offset (幾度))
+.setLabelPosition(LimitLabelPosition pos) - 顯示的位置
+
+[MPObject - ComponentBase] 看 charting/components/ComponentBase.java
+.setTextSize(float size) - 設定文字大小
+.setTypeface(Typeface tf) - 設定字型
+.setEnabled(boolean enabled) - 就是 enabled 或是 not enabled
+
+[MPObject - Legend] 看 charting/components/Legend.java (含一個 每個顏色和 DataSet 的入口,在一DataSet有多個顏色會群聚在一起)
+.setForm(LegendForm shape) - 設定 legend forms的 form/shape
+.setVerticalAlignment(LegendVerticalAlignment value) - sets the vertical alignment of the legend
+.setHorizontalAlignment(LegendHorizontalAlignment value) - sets the horizontal alignment of the legend
+.setOrientation(LegendOrientation value) - sets the orientation of the legend
+.setDrawInside(boolean value) - sets whether the legend will draw inside the chart or outside
+enum LegendForm 重要
+
+[MPObject - ChartData] 看 charting/data/ChartData.java
+看檔案內容研究
+1. Baseclass of all Chart-Views.
+2. public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Entry>>> 
+    extends ViewGroup
+    implements ChartInterface
+  猜測應 多 Entry 組成 IDataSet, 多 IDataSet 組成 ChartData, 多 ChartData 組成 Chart
+
+.int getDataSetCount() - 回傳此object包含的 LineDataSets 數
+T getDataSetByIndex(int index) - 回傳第 index 筆記錄
+.notifyDataChanged() - let the ChartData know that the 基礎資料 has changed
+
+
+
+[MPObject - DataSet] 看 charting/data/DataSet.java
+.setValues(List<T> values) - 設定此 DataSet描述的 項目array
+
+[MPObject - BaseDataSet] 看 charting/data/BaseDataSet.java
+.notifyDataSetChanged() - 用此方法告訴此基礎的資料被改變了
+.setDrawIcons(boolean enabled) - 設定 是否 draw icon
+.setColor(int color) - sets the one and ONLY color that should be used for this DataSet.
+
+以下是 customize legend entry
+.setFormLineWidth(float formLineWidth) - 
+.setFormLineDashEffect(DashPathEffect dashPathEffect - 設定畫線的 Dash 效果
+.setFormSize(float formSize)
+
+.setValueTextSize(float size) - 這是 @Override 的, text size of values
+
+[MPObject - LineDataSet] 看 charting/data/LineDataSet.java
+public LineDataSet(List<Entry> yVals, String label) - 建構子, 會有一串可能是 Y 軸的 List和 label字串
+.enableDashedLine(float lineLength, float spaceLength, float phase) { - 是劃成dashed mode, 像- - - - - -
+.setCircleColor(int color) - Sets the one and ONLY color that should be used for this DataSet.
+.setCircleR人一口中adius(float radius) - Sets the radius of the drawn circles.
+.setDrawCircleHole(boolean enabled) - 設為true,允許每個data circle都畫一個洞
+.setFillFormatter(IFillFormatter formatter) - Sets a custom IFillFormatter to the chart that handles the position of the filled-line for each DataSet.
+
+[MPObject - LineRadarDataSet] 看 charting/data/LineRadarDataSet.java
+.setLineWidth(float width) - set the line width of the chart (min = 0.2f, max = 10f); default 1f NOTE:
+.setDrawFilled(boolean filled) - 設定 filled area 
+.setFillDrawable(Drawable drawable) - 設定圖片要填滿的 Drawable
+
+[MPObject - LineScatterCandleRadarDataSet] 看 charting/data/LineScatterCandleRadarDataSet.java
+.enableDashedHighlightLine(float lineLength, float spaceLength, float phase)  //enable highlight線為 dashed mode
+
+[MPObject - ILineDataSet] 看 charting/interfaces/datasets/ILineDataSet.java
+這是一個 interface, 繼承 ILineRadarDataSet
+看起來常用,在 LineChartActivity1.java 有用到, 參以下
+    ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+    dataSets.add(set1); // add the data sets, set1是 畫主線圖的相關設定,包括資料,線的顏色,畫的樣式,各點的狀況等
+
+    // create a data object with the data sets
+    LineData data = new LineData(dataSets);  //把資料放到線圖上
+
+    // set data
+    chart.setData(data);	//chart 來把圖畫上
+
+
+[MPObject - Utils] 看 charting/utils/Utils.java
+
+[MPObject - OnChartValueSelectedListener] 看 charting/listener/OnChartValueSelectedListener.java , 若選到圖的值的callback
+LineChartActivity1.java , MultiLineChartActivity.java 有用到
+
+[MPObject - OnChartGestureListener] 看 charting/listener/OnChartGestureListener.java
+MultiLineChartActivity.java 有用到
+
+[MPObject - LineChart] 看 charting/charts/LineChart.java
+這是曲線時的基本class
+
+[MPObject - ColorTemplate] 看 charting/utils/ColorTemplate.java
+Class that holds predefined color integer arrays (e.g. ColorTemplate.VORDIPLOM_COLORS)
+= = = =
+[其他重要的地方]
+1. Bar chart有X,Y軸不同的單位處理
+2. 看到有三個區域
+ a. Chart,以線性圖來看,是使用 LineChart
+    Description - 有做一些描述的文字區 chart.getDescription() 後的一些處理
+3. onProgressChanged 都是重繪圖的地方,要仔細研究
+4. 有關軸線的文字型式,可參 DayAxisValueFormatter 的格式

@@ -2,6 +2,7 @@ package pcp.com.mympandroidcharttest;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+import pcp.com.mympandroidcharttest.bar_chart.BarChartIntroActivity;
 import pcp.com.mympandroidcharttest.line.LineActivity;
 
 import android.content.Intent;
@@ -13,7 +14,7 @@ import android.widget.Button;
 import com.github.mikephil.charting.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
-    Button mbtnLine;
+    Button mbtnLine, mbtnBarChart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +26,22 @@ public class MainActivity extends AppCompatActivity {
         Utils.init(this);
 
         mbtnLine = findViewById(R.id.btnLine);
+        mbtnBarChart = findViewById(R.id.btnBarChart);
 
         mbtnLine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent();
                 i.setClass(MainActivity.this, LineActivity.class);
+                startActivity(i);
+            }
+        });
+
+        mbtnBarChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent();
+                i.setClass(MainActivity.this, BarChartIntroActivity.class);
                 startActivity(i);
             }
         });

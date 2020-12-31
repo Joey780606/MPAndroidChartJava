@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".line.LineActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
@@ -14,21 +14,23 @@
         android:orientation="vertical"/>
 
     <Button
-        android:id="@+id/btnLine"
+        android:id="@+id/btnBasic"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Line"
+        android:layout_margin="5dp"
+        android:text="Basic"
         app:layout_constraintEnd_toStartOf="@+id/guideline_50Vper"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnBarChart"
+        android:id="@+id/btnMulti"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Bar Chart"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_50Vper"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLine" />
+        android:layout_margin ="5dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_50Vper"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

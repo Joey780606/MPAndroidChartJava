@@ -12,6 +12,9 @@
         <activity android:name=".line.LineActivity" />
         <activity android:name=".line.LineChartActivity1" />
         <activity android:name=".line.MultiLineChartActivity" />
+        <activity android:name=".bar_chart.BarChartIntroActivity" />
+        <activity android:name=".bar_chart.BarChartActivity" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
